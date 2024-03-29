@@ -46,10 +46,16 @@ Acesse a aplicação em uma aba de seu navegador através do link:
 http://app-cadastro-nis.online
 
 ## Passo 8
-Rodar o comando `docker-compose exec php bin/console make:migration` para criar uma nova migração para o banco de dados;
+Rodar o comando `docker-compose exec php bin/console make:migration` para criar uma nova migração para o banco de dados (se este comando apresentar muitos problemas, pule para o passo 10);
 
 ## Passo 9
 Rodar o comando `docker-compose exec php bin/console make:migration` para criar a migration da entidade;
 
 ## Passo 10
-Rodar o comando `php bin/console doctrine:migrations:migrate` para criar as tabelas no banco de dados;
+Acesse o seu banco de dados com as credenciais criadas neste arquivo, e coloque para rodar a query presente no arquivo `query.sql` da raiz deste repositório, a saber:
+`CREATE TABLE people_registered (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    nis BIGINT NOT NULL
+);`
+
