@@ -15,9 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PeopleRegisteredController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route('/', name: 'index')]
     public function index() : Response
     {
         $data['titulo']  = 'Sistema de Cadastro e Consulta NIS';
