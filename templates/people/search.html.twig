@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            var form = document.getElementById('people_form');
+            var button = document.getElementById('people_consulted_Pesquisar');
+            var spinner = document.getElementById('spinner_search');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(form);
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('POST', '{{ path('consultar') }}', true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                button.disabled = true;
+                spinner.style.display = 'block';
+
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.message) {
+                            var messageContainer = document.createElement('div');
+                            messageContainer.className = 'alert alert-primary';
+                            messageContainer.textContent = response.message;
+                            form.parentNode.insertBefore(messageContainer, form.nextSibling);
+
+                            form.reset();
+                            button.disabled = false;
+                            spinner.style.display = 'none';
+                        }
+                    } else {
+                        alert('Erro ao processar a requisição');
+                        button.disabled = false;
+                        spinner.style.display = 'none';
+                    }
+                };
+
+                xhr.onerror = function() {
+                    alert('Erro de conexão');
+                    button.disabled = false;
+                    spinner.style.display = 'none';
+                };
+
+                xhr.send(formData);
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+
+<h1 style="margin-top: 150px;">{{ titulo }}</h1>
+
+{% if message %}
+    <p class="alert alert-primary">{{ message }}</p>
+{% endif %}
+
+{{ form(form, {'attr': {'id': 'people_form'}}) }}
+
+<div id="spinner_search" class="spinner-border text-secondary" role="status" style="margin-left: 15px; display: none;">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+{% endblock %}
