@@ -32,8 +32,8 @@ Criar um arquivo `.env` baseado nas configurações do arquivo `.env.test` exist
 - DATABASE_URL="postgresql://SEU_USUARIO:SUA_SENHA@db:5432/NOME_DO_BANCO_DE_DADOS?serverVersion=16&charset=utf8"
 
 ## Passo 4
-Acrescentar no final do arquivo hosts de sua máquina a seguinte linha, para obter uma URL mais amigável:
-127.0.0.1      app-cadastro-nis.online
+Acrescentar no final do arquivo hosts de sua máquina a seguinte linha, para obter uma URL mais amigável:<br>
+`127.0.0.1      app-cadastro-nis.online`
 
 ## Passo 5
 Rodar o comando `docker-compose up -d` para criação dos containers;
@@ -42,8 +42,10 @@ Rodar o comando `docker-compose up -d` para criação dos containers;
 Rodar o comando `docker-compose exec php composer install` para instalação das dependências do projeto;
 
 ## Passo 7
-Acesse a aplicação em uma aba de seu navegador através do link: 
-http://app-cadastro-nis.online
+Acesse a aplicação em uma aba de seu navegador através do link: <br>
+http://app-cadastro-nis.online <br>
+
+ou http://localhost:80
 
 ## Passo 8
 Rodar o comando `docker-compose exec php bin/console make:migration` para criar uma nova migração para o banco de dados (se este comando apresentar muitos problemas, pule para o passo 10);
